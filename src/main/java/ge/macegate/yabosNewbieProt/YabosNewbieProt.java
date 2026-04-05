@@ -6,55 +6,51 @@ import ge.macegate.yabosNewbieProt.listeners.DamageListener;
 import ge.macegate.yabosNewbieProt.listeners.PlayerListener;
 import ge.macegate.yabosNewbieProt.managers.ProtectionManager;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class YabosNewbieProt extends JavaPlugin {
 
-    private static YabosNewbieProt instance;
     private ProtectionManager protectionManager;
 
     @Override
     public void onEnable() {
-        instance = this;
-
         saveDefaultConfig();
 
-        protectionManager = new ProtectionManager(this);
-        protectionManager.loadData();
+        this.protectionManager = new ProtectionManager(this);
+        this.protectionManager.loadData();
+        this.protectionManager.startTasks();
 
-        // Start AFK detection & countdown ticker
-        protectionManager.startTicker();
+        Bukkit.getPluginManager().registerEvents(new DamageListener(this, protectionManager), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(this, protectionManager), this);
 
-        // Register listeners
-        Bukkit.getPluginManager().registerEvents(new DamageListener(protectionManager), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(protectionManager, this), this);
-
-        // Register command
-        NewbieProtCommand cmd = new NewbieProtCommand(protectionManager, this);
-        getCommand("newbieprot").setExecutor(cmd);
-        getCommand("newbieprot").setTabCompleter(cmd);
-
-        // Hook PlaceholderAPI
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PlaceholderAPIHook(protectionManager).register();
-            getLogger().info("Hooked into PlaceholderAPI successfully.");
-        } else {
-            getLogger().warning("PlaceholderAPI not found. Placeholders will not work.");
+        PluginCommand command = getCommand("newbieprot");
+        if (command == null) {
+            getLogger().severe("Command 'newbieprot' is missing from plugin.yml. Disabling plugin.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
 
-        getLogger().info("YabosNewbieProt enabled!");
+        NewbieProtCommand newbieProtCommand = new NewbieProtCommand(this, protectionManager);
+        command.setExecutor(newbieProtCommand);
+        command.setTabCompleter(newbieProtCommand);
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderAPIHook(this, protectionManager).register();
+            getLogger().info("Hooked into PlaceholderAPI successfully.");
+        } else if (getConfig().getBoolean("hooks.placeholderapi.warn-if-missing", true)) {
+            getLogger().warning("PlaceholderAPI not found. Placeholder expansion was not registered.");
+        }
+
+        getLogger().info("YabosNewbieProt enabled.");
     }
 
     @Override
     public void onDisable() {
         if (protectionManager != null) {
-            protectionManager.saveData();
+            protectionManager.shutdown();
         }
-        getLogger().info("YabosNewbieProt disabled. Data saved.");
-    }
-
-    public static YabosNewbieProt getInstance() {
-        return instance;
+        getLogger().info("YabosNewbieProt disabled.");
     }
 
     public ProtectionManager getProtectionManager() {

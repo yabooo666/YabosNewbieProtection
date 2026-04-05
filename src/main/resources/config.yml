@@ -1,0 +1,210 @@
+# ─────────────────────────────────────────────────────────────
+# YabosNewbieProt - Made for play.macegate.ge
+# ─────────────────────────────────────────────────────────────
+
+storage:
+  file: data.yml
+  save-on-disable: true
+  save-on-quit: false
+  save-only-when-dirty: true
+  auto-save-seconds: 180
+
+protection:
+  default-duration-seconds: 900
+  auto-grant-on-first-join: true
+  countdown-interval-seconds: 1
+  pause-countdown-while-afk: true
+  afk-threshold-seconds: 10
+  pause-countdown-in-disabled-worlds: false
+  hide-visuals-in-disabled-worlds: true
+  afk-detection:
+    use-block-position: true
+    use-look-direction: false
+  world-filter:
+    # disabled | whitelist | blacklist
+    mode: disabled
+    worlds: []
+
+rules:
+  block-incoming:
+    player-damage: true
+    mob-damage: false
+    environmental-damage: false
+  block-outgoing:
+    player-damage: true
+  remove-protection-when-player-attacks: false
+
+notifications:
+  attacker-message-enabled: true
+
+  join-status:
+    enabled: true
+
+  action-bar:
+    enabled: true
+    format: "<gray>Protection: <white>{time}</white></gray>"
+    paused-format: "<gray>Protection paused: <white>{time}</white></gray>"
+
+  boss-bar:
+    enabled: false
+    color: GREEN
+    overlay: PROGRESS
+    reverse-progress: false
+    format: "<gray>Protection: <white>{time}</white></gray>"
+    paused-format: "<gray>Protection paused: <white>{time}</white></gray>"
+
+  warning:
+    enabled: true
+    times-seconds:
+      - 300
+      - 60
+      - 30
+      - 10
+
+  title:
+    enabled: true
+
+    expired:
+      enabled: true
+      title: "<red><bold>Protection Ended</bold></red>"
+      subtitle: "<gray>You are now vulnerable.</gray>"
+      fade-in-ticks: 10
+      stay-ticks: 60
+      fade-out-ticks: 10
+
+    removed:
+      enabled: true
+      title: "<red><bold>Protection Removed</bold></red>"
+      subtitle: "<gray>An admin removed your protection.</gray>"
+      fade-in-ticks: 10
+      stay-ticks: 60
+      fade-out-ticks: 10
+
+    removed-on-attack:
+      enabled: true
+      title: "<red><bold>Protection Removed</bold></red>"
+      subtitle: "<gray>You attacked while protected.</gray>"
+      fade-in-ticks: 10
+      stay-ticks: 60
+      fade-out-ticks: 10
+
+  sound:
+    enabled: true
+
+    expired:
+      enabled: true
+      name: BLOCK_BEACON_DEACTIVATE
+      volume: 1.0
+      pitch: 1.0
+
+    removed:
+      enabled: true
+      name: BLOCK_NOTE_BLOCK_BASS
+      volume: 1.0
+      pitch: 1.0
+
+    removed-on-attack:
+      enabled: true
+      name: ENTITY_PLAYER_ATTACK_STRONG
+      volume: 1.0
+      pitch: 1.0
+
+commands:
+  page-size: 10
+  allow-targeting-never-joined-players: false
+
+  permissions:
+    self: newbieprot.use
+    admin: newbieprot.admin
+
+  aliases:
+    help: ["?", "help"]
+    grant: ["give"]
+    remove: ["revoke"]
+    check: ["info"]
+    list: []
+    reload: ["rl"]
+    set: []
+    addtime: ["add"]
+    removetime: ["subtract", "take"]
+    status: ["me", "self"]
+
+hooks:
+  placeholderapi:
+    warn-if-missing: true
+    identifier: newbieprot
+    persist: true
+    status-protected: Protected
+    status-unprotected: Unprotected
+    unprotected-time-text: Not protected
+
+time-format:
+  days-suffix: d
+  hours-suffix: h
+  minutes-suffix: m
+  seconds-suffix: s
+  spacer: " "
+  show-zero-units: false
+  zero-format: 0s
+
+messages:
+  player:
+    granted: "<gray>You received newbie protection for <white>{time}</white>.</gray>"
+    set: "<gray>Your newbie protection was set to <white>{time}</white>.</gray>"
+    added-time: "<gray><white>{time}</white> was added to your newbie protection.</gray>"
+    removed-time: "<gray><white>{time}</white> was removed from your newbie protection.</gray>"
+    warn: "<yellow>Your newbie protection expires in <white>{time}</white>.</yellow>"
+    expired: "<red>Your newbie protection expired.</red>"
+    removed: "<red>Your newbie protection was removed by an admin.</red>"
+    removed-on-attack: "<red>You attacked another player and lost your newbie protection.</red>"
+    join-status: "<gray>Your newbie protection is active for <white>{time}</white>.</gray>"
+
+  combat:
+    blocked-attacker: "<red><white>{player}</white> is under newbie protection.</red>"
+    blocked-protected-attacker: "<yellow>You cannot damage players while your newbie protection is active.</yellow>"
+
+  command:
+    no-permission: "<red>You do not have permission to use this command.</red>"
+    players-only: "<red>This command can only be used by a player.</red>"
+    player-not-found: "<red>Player <white>{player}</white> was not found.</red>"
+    player-never-joined: "<red>That player has never joined before.</red>"
+    invalid-duration: "<red>Invalid duration. Use values like 90, 30s, 15m, 2h, 1d, or 1h30m.</red>"
+    not-protected: "<yellow><white>{player}</white> is not protected.</yellow>"
+
+    help-title: "<gray><bold>YabosNewbieProt Commands</bold></gray>"
+    help-lines:
+      - "<white>/newbieprot status</white> <gray>- Check your own protection</gray>"
+      - "{admin-only}<white>/newbieprot grant <player> [time]</white> <gray>- Grant protection</gray>"
+      - "{admin-only}<white>/newbieprot set <player> <time></white> <gray>- Set exact protection time</gray>"
+      - "{admin-only}<white>/newbieprot addtime <player> <time></white> <gray>- Add protection time</gray>"
+      - "{admin-only}<white>/newbieprot removetime <player> <time></white> <gray>- Remove protection time</gray>"
+      - "{admin-only}<white>/newbieprot remove <player></white> <gray>- Remove protection</gray>"
+      - "{admin-only}<white>/newbieprot check <player></white> <gray>- Check remaining time</gray>"
+      - "{admin-only}<white>/newbieprot list [page]</white> <gray>- List protected players</gray>"
+      - "{admin-only}<white>/newbieprot reload</white> <gray>- Reload config</gray>"
+
+    usage:
+      grant: "<red>Usage: /newbieprot grant <player> [time]</red>"
+      remove: "<red>Usage: /newbieprot remove <player></red>"
+      check: "<red>Usage: /newbieprot check <player></red>"
+      set: "<red>Usage: /newbieprot set <player> <time></red>"
+      addtime: "<red>Usage: /newbieprot addtime <player> <time></red>"
+      removetime: "<red>Usage: /newbieprot removetime <player> <time></red>"
+
+    granted-admin: "<green>Granted newbie protection to <white>{player}</white> for <white>{time}</white>.</green>"
+    removed-admin: "<green>Removed newbie protection from <white>{player}</white>.</green>"
+    set-admin: "<green>Set <white>{player}</white>'s protection to <white>{time}</white>.</green>"
+    added-time-admin: "<green>Added <white>{time}</white> to <white>{player}</white>.</green>"
+    removed-time-admin: "<yellow>Removed <white>{time}</white> from <white>{player}</white>.</yellow>"
+    check-protected: "<green><white>{player}</white> has <white>{time}</white> remaining.</green>"
+    check-unprotected: "<yellow><white>{player}</white> is not protected.</yellow>"
+    status-protected: "<green>You are protected for <white>{time}</white>.</green>"
+    status-unprotected: "<yellow>You do not currently have newbie protection.</yellow>"
+    reload-success: "<green>Configuration reloaded successfully.</green>"
+
+    list-empty: "<yellow>No protected players found.</yellow>"
+    list-header: "<gray><bold>Protected Players</bold></gray> <dark_gray>({page}/{pages})</dark_gray>"
+    list-line: "<dark_gray>-</dark_gray> <white>{player}</white> <dark_gray>→</dark_gray> <gray>{time}</gray> <dark_gray>({status})</dark_gray>"
+    list-status-online: online
+    list-status-offline: offline
+    list-footer: "<dark_gray>Total: <white>{total}</white></dark_gray>"

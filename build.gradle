@@ -1,31 +1,31 @@
 plugins {
     id 'java'
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    id('xyz.jpenilla.run-paper') version '2.3.1'
 }
 
 group = 'ge.macegate'
-version = '1.0-SNAPSHOT'
+version = '2.0-CONFIGCORE'
 
 repositories {
     mavenCentral()
     maven {
-        name = "papermc-repo"
-        url = "https://repo.papermc.io/repository/maven-public/"
+        name = 'papermc-repo'
+        url = 'https://repo.papermc.io/repository/maven-public/'
     }
     maven {
-        name = "placeholderapi"
-        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+        name = 'placeholderapi'
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly('io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT')
+    compileOnly('me.clip:placeholderapi:2.11.6')
 }
 
 tasks {
     runServer {
-        minecraftVersion("1.21")
+        minecraftVersion('1.21')
     }
 }
 

@@ -1,0 +1,23 @@
+name: YabosNewbieProt
+version: '${version}'
+main: ge.macegate.yabosNewbieProt.YabosNewbieProt
+api-version: '1.21'
+description: Highly configurable newbie protection with PlaceholderAPI support
+author: macegate
+
+softdepend:
+  - PlaceholderAPI
+
+commands:
+  newbieprot:
+    description: Manage newbie protection
+    usage: /newbieprot <subcommand>
+    permission: newbieprot.use
+
+permissions:
+  newbieprot.use:
+    description: Allows using self-status newbie protection commands
+    default: true
+  newbieprot.admin:
+    description: Allows using all newbie protection admin commands
+    default: op

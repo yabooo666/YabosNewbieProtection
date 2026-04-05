@@ -1,0 +1,39 @@
+Custom Personal Server Use Only License
+Version 1.0
+
+Copyright (c) 2026 MaceGate
+
+1. Grant of Permission
+Permission is granted to any person obtaining a copy of this software to use the software on their own private or commercial Minecraft server or network that they own or control.
+
+2. Private Modification
+You may modify the software for your own private or internal use on servers or networks that you own or control.
+
+3. Restrictions
+You may not, without prior written permission from the copyright holder:
+
+- redistribute this software in source or compiled form
+- reupload this software to any website, repository, marketplace, archive, or file host
+- resell, rent, sublicense, lease, or otherwise commercially distribute this software
+- distribute modified versions of this software
+- publish this software as part of another plugin, package, template, server setup, or public repository
+- claim authorship or ownership of this software
+- remove or alter existing copyright or attribution notices
+
+4. Public Use and Sharing
+Use on your own server is allowed.
+Sharing the software itself, whether original or modified, is not allowed unless explicit written permission is given by the copyright holder.
+
+5. Ownership
+This software is licensed, not sold. All rights not expressly granted by this license are reserved by the copyright holder.
+
+6. No Warranty
+This software is provided "as is", without warranty of any kind, express or implied, including but not limited to merchantability, fitness for a particular purpose, and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability arising from, out of, or in connection with the software or the use or other dealings in the software.
+
+7. Termination
+Any use of the software outside the permissions granted by this license automatically terminates this license.
+
+8. Contact / Permissions
+For redistribution, relicensing, public use in packs, or commercial arrangements beyond the permissions above, permission must be obtained from the copyright holder.
+
+Made for play.macegate.ge
